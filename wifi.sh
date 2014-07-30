@@ -1,7 +1,7 @@
 #!/bin/bash
 
 INTERFACE="$1"
-[ -z "$1" ] && INTERFACE="wlan1"
+[ -z "$1" ] && INTERFACE="wlan0"
 
 # "yes" : pretty color output ; anything else : good ol' B&W
 color="yes"
