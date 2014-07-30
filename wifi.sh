@@ -9,13 +9,13 @@ color="yes"
 # iwlist output parsing
 PARSER='
 BEGIN { FS=":"; OFS="="; }
-/\<Cell/ { if (essid) print essid, channel, security, quality[1]/quality[2]*100; security="none" }
+/\<Cell/ { if (essid) print essid, channel, security, quality[2]/quality[3]*100; security="none" }
 /\<Channel/ { channel=$2 }
 /\<ESSID:/ { essid=substr($2, 2, length($2) - 2) } # discard quotes
-/\<Quality:/ { split($2, quality, "[=/]") }
+/\<Quality/ { split($1, quality, "[=/]") }
 /\<IE:.*WPA.*/ { security="wpa" }
 /\<Encryption key:on/ { if(!security) security="wep" }
-END { if (essid) print essid, channel, security, quality[1]/quality[2]*100 }
+END { if (essid) print essid, channel, security, quality[2]/quality[3]*100 }
 '
 
 fail () {
